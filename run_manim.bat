@@ -1,0 +1,1 @@
+python -m manim testcamera2.py Te -pl
