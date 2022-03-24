@@ -2,11 +2,11 @@ import os
 
 f = open ('run_manim.bat', 'w')
 
-py_file_name = 'testcamera2.py'
-classname = 'Te'
-pl = ' -pl'
-pm = ' -pm'
-str01 = 'python -m manim ' + py_file_name + ' ' + classname + pl
+py_file_name = 'trymatrix_exp.py'
+classname = 'Test_'
+videoquality = '--hd'
+other = '-ow'
+str01 = 'manimgl ' + py_file_name + ' ' + classname + ' ' + videoquality + ' ' + other
 
 f.write(str01)
 f.close

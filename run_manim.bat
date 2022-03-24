@@ -1,1 +1,1 @@
-python -m manim testcamera2.py Te -pl
+manimgl trymatrix_exp.py Test_ --hd -ow
