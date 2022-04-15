@@ -3,7 +3,7 @@ import os
 f = open ('run_manim.bat', 'w')
 
 py_file_name = 'trymatrix_exp.py'
-classname = 'Test_'
+classname = 'VideoWrapper'
 videoquality = '--hd'
 other = '-ow'
 str01 = 'manimgl ' + py_file_name + ' ' + classname + ' ' + videoquality + ' ' + other

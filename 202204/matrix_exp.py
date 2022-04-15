@@ -1,5 +1,14 @@
-from manim_imports_ext import *
-
+from manimlib import *
+from OtherUP.ThreeB1B_Videos.custom.backdrops import *
+from OtherUP.ThreeB1B_Videos.custom.banner import *
+from OtherUP.ThreeB1B_Videos.custom.characters.pi_creature import *
+from OtherUP.ThreeB1B_Videos.custom.characters.pi_creature_animations import *
+from OtherUP.ThreeB1B_Videos.custom.characters.pi_creature_scene import *
+from OtherUP.ThreeB1B_Videos.custom.deprecated import *
+from OtherUP.ThreeB1B_Videos.custom.end_screen import *
+from OtherUP.ThreeB1B_Videos.custom.filler import *
+from OtherUP.ThreeB1B_Videos.custom.logo import *
+from OtherUP.ThreeB1B_Videos.custom.opening_quote import *
 
 def get_matrix_exponential(matrix, height=1.5, scalar_tex="t", **matrix_config):
     elem = matrix[0][0]
