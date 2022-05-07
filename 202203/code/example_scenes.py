@@ -17,7 +17,7 @@ class OpeningManimExample(Scene):
             as transformations.
         """)
         intro_words.to_edge(UP)
-
+1
         self.play(Write(intro_words))
         self.wait(2)
 

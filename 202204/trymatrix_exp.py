@@ -1,9 +1,10 @@
-from manim_imports_ext import *
+from manimlib import *
 
 class VideoWrapper(Scene):
-    title = "hello"
+    title = "Here we are"
 
     def construct(self):
+        circle = Circle().set_color(Google_BLUE)
         self.add(FullScreenRectangle())
         screen_rect = ScreenRectangle(height=6)
         screen_rect.set_stroke(BLUE_D, 1)
@@ -16,5 +17,7 @@ class VideoWrapper(Scene):
             title.set_width(screen_rect.get_width())
         title.next_to(screen_rect, UP)
 
-        self.play(Write(title))
+        self.play(Write(title),run_time = 3)
+        self.wait()
+        self.play(ShowCreation(circle),run_time = 2)
         self.wait()
