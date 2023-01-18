@@ -30,4 +30,4 @@ manim-render <code>.py <Scene> <flags>
 | `--video_dir VIDEO_DIR`                                 |      | 存放视频的目录                                               |
 | `--config_file CONFIG_FILE`                             |      | 使用指定的配置文件                                           |
 
-manimgl example_scenes.py OpeningManimExample --hd -ow
+manimgl testbracket.py Scene1 --hd -ow
