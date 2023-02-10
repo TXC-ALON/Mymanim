@@ -152,3 +152,7 @@ dmypy.json
 /custom_config.yml
 
 *.png
+
+2023/videos/
+
+manim运行命令.txt
