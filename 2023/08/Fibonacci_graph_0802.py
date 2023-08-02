@@ -82,13 +82,33 @@ class MyScene(Scene):
         # self.play(MoveAlongPath(dot, circle), run_time=5)  # 点沿着圆形路径运动，运行时间为5秒
         # self.wait()  # 等待动画结束
 
-        self.draw_fibonacci_square(7, 1)
+        self.draw_fibonacci_square(8, 1)
         self.wait(2)
+    def checkarc(self,arc):
+        a1, h, a2 = arc.get_points()[:3]
+        # a1= arc1.get_points()[4]
+        # h = arc1.get_points()[5]
+        # a2 = arc1.get_points()[6]
+        arc1Pointlist = arc.get_points()
+        print("----------------------")
+        print(arc1Pointlist)
+        # Tangent vectors
+        t1 = h - a1
+        t2 = h - a2
+        # Normals
+        n1 = rotate_vector(t1, TAU / 4)
+        n2 = rotate_vector(t2, TAU / 4)
+        myinterfacep =  find_intersection(a1, n1, a2, n2)
+        print("a1 {0}, h {1}, a2 {2}".format(a1, h, a2))
+        print("t1 {0}, t2 {1}".format(t1, t2))
+        print("n1 {0}, n2 {1}".format(n1, n2))
+        print(myinterfacep)
+        print("----------------------")
 
     def draw_fibonacci_square(self, n, base):
-        FiboList = calculate_fibonacci_recursive(n + 3, base)
-        FiboCenterList = calculate_fibonacci_Points(n + 3, base)[0]
-        FiboArcList = calculate_fibonacci_Points(n + 3, base)[1]
+        FiboList = calculate_fibonacci_recursive(2 * n, base)
+        FiboCenterList = calculate_fibonacci_Points(2 * n, base)[0]
+        FiboArcList = calculate_fibonacci_Points(2 * n, base)[1]
         print(FiboList)
         for i in range(0, n):
             print("this {0} time length {1},pos = {2}".format(i, FiboList[i], FiboCenterList[i]))
@@ -98,8 +118,35 @@ class MyScene(Scene):
             square.move_to(FiboCenterList[i])
             resP = MyPoint(FiboArcList[i].x, FiboArcList[i].y)
             resP.print()
-            movepoint = np.array([resP.x, resP.y, 0]) + POS[i] * FiboList[i]
-            print("0802-- movepoint{0} ".format(movepoint))
+            movepoint = np.array([resP.x, resP.y, 0]) + POS[i % 4] * FiboList[i]
+            print("0802--i {2} movepoint{0} FiboList[i] {1}".format(movepoint,FiboList[i],i))
             arc.move_arc_center_to(movepoint)
-            self.play(ShowCreation(square))
-            self.play(ShowCreation(arc))
+            self.add(square,arc)
+            # self.play(ShowCreation(square))
+            # self.play(ShowCreation(arc))
+        dot = Dot().set_color(YELLOW)
+        dot.move_to(np.array([0,0.5,0]))
+        self.add(dot)
+        arc1 = Arc(((3) / 4) * TAU, TAU / 4, radius=0.5).set_color(RED)
+        arc11 = Arc(((3) / 4) * TAU, TAU / 4, radius=0.5).set_color(BLUE)
+        arc2 = Arc(((4) / 4) * TAU, TAU / 4, radius=1).set_color(RED)
+        arc3 = Arc(((3) / 4) * TAU, TAU / 4, radius=1).set_color(GREEN)
+        self.add(arc11)
+        print(arc1.get_arc_center())
+        print(arc11.get_arc_center())
+        print(arc2.get_arc_center())
+        print(arc3.get_arc_center())
+        arc1.move_arc_center_to(np.array([0,1,0]))
+
+        self.checkarc(arc1)
+
+
+        arc2.move_arc_center_to(np.array([1, 1, 0]))
+        arc3.move_arc_center_to(np.array([0, 1, 0]))
+        self.checkarc(arc3)
+        print(arc1.get_arc_center())
+        print(arc11.get_arc_center())
+        print(arc2.get_arc_center())
+        print(arc3.get_arc_center())
+        self.add(arc2,arc3)
+        self.play(ShowCreation(arc1))
