@@ -39,7 +39,7 @@ def find_intersection1(
     v0: npt.ArrayLike,
     p1: npt.ArrayLike,
     v1: npt.ArrayLike,
-    threshold: float = 1e-5
+    threshold: float = 1e-9
 ) -> np.ndarray:
     """
     Return the intersection of a line passing through p0 in direction v0
@@ -48,25 +48,54 @@ def find_intersection1(
     For 3d values, it returns the point on the ray p0 + v0 * t closest to the
     ray p1 + v1 * t
     """
+
+    # 将输入转换为NumPy数组
     p0 = np.array(p0, ndmin=2)
     v0 = np.array(v0, ndmin=2)
     p1 = np.array(p1, ndmin=2)
     v1 = np.array(v1, ndmin=2)
+
     m, n = np.shape(p0)
     assert(n in [2, 3])
 
+    # 计算交点的分子和分母
     numer = np.cross(v1, p1 - p0)
     denom = np.cross(v1, v0)
+
+    print("Numerator:")
+    print(numer)
+    print("Denominator:")
+    print(denom)
+
     if n == 3:
         d = len(np.shape(numer))
         new_numer = np.multiply(numer, numer).sum(d - 1)
         new_denom = np.multiply(denom, numer).sum(d - 1)
         numer, denom = new_numer, new_denom
 
+    print("New Numerator (if n=3):")
+    print(numer)
+    print("New Denominator (if n=3):")
+    print(denom)
+
+    # 处理分母为0的情况，避免除以0
     denom[abs(denom) < threshold] = np.inf  # So that ratio goes to 0 there
+
+    print("Updated Denominator:")
+    print(denom)
+
+    # 计算交点的比例
     ratio = numer / denom
+
+    print("Ratio:")
+    print(ratio)
+
     ratio = np.repeat(ratio, n).reshape((m, n))
-    return p0 + ratio * v0
+
+    # 计算交点的坐标
+    intersection = p0 + ratio * v0
+
+    return intersection
 
 
 def arcmidPoint_ne(arc,n):
@@ -191,8 +220,8 @@ def testArc():
     print(arcmidPoint(arc1))
     print("\nCheckArc1")
     checkarc(arc1)
-    print("\ncheckarcSpecial1")
-    checkarcSpecial(arc1)
+    # print("\ncheckarcSpecial1")
+    # checkarcSpecial(arc1)
     print("\nCheckArc3")
     checkarc(arc3)
 
