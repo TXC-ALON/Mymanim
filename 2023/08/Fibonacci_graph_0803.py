@@ -102,7 +102,7 @@ class MyScene(Scene):
         # self.play(MoveAlongPath(dot, circle), run_time=5)  # 点沿着圆形路径运动，运行时间为5秒
         # self.wait()  # 等待动画结束
 
-        self.draw_fibonacci_square(10, 0.1)
+        self.draw_fibonacci_square(100, 1)
         self.wait(2)
     def checkarc(self,arc):
         a1, h, a2 = arc.get_points()[:3]
@@ -126,6 +126,7 @@ class MyScene(Scene):
         print("----------------------")
 
     def draw_fibonacci_square(self, n, base):
+        frame = self.camera.frame
         FiboList = calculate_fibonacci_recursive(2 * n, base)
         FiboCenterList = calculate_fibonacci_Points(2 * n, base)[0]
         FiboArcList = calculate_fibonacci_Points(2 * n, base)[1]
@@ -133,7 +134,7 @@ class MyScene(Scene):
         for i in range(0, n):
             print("this {0} time length {1},pos = {2}".format(i, FiboList[i], FiboCenterList[i]))
             square = Square(side_length=FiboList[i], fill_color=colorlist[i % 4], fill_opacity=0.8,stroke_width = 0.2)
-            arc = Arc(((3 + i) / 4) * TAU, TAU / 4, radius=FiboList[i],stroke_width = 0.5 if FiboList[i] < 1 else 1)
+            arc = Arc(((3 + i) / 4) * TAU, TAU / 4, radius=FiboList[i],stroke_width = 0.5 if FiboList[i] <= 1 else i)
             FiboSquarelist.append(square)
             square.move_to(FiboCenterList[i])
             resP = MyPoint(FiboArcList[i].x, FiboArcList[i].y)
@@ -144,8 +145,10 @@ class MyScene(Scene):
                 move_arc_center_to_little(arc,movepoint,arcmidPoint_ne(arc))
             else:
                 arc.move_arc_center_to(movepoint)
+            self.play(frame.animate.set_width(np.array(FiboList[i] * 4)), run_time=0.5)
             self.play(ShowCreation(square),run_time = 0.5)
             self.play(ShowCreation(arc),run_time = 0.5)
+
         # dot = Dot().set_color(YELLOW)
         # dot.move_to(np.array([0,0.5,0]))
         # self.add(dot)
